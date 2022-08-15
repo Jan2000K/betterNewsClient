@@ -1,11 +1,11 @@
-import {languageContext} from "../../context/languageContext"
-import React, {useContext, useEffect, useRef, useState} from "react"
+import { languageContext } from "../../context/languageContext"
+import React, { useContext, useEffect, useRef, useState } from "react"
 
 export default function BlockedWords() {
     let langCtx = useContext(languageContext)
     let placeholderText = ""
     let addText = ""
-    let wordExistsText=""
+    let wordExistsText = ""
     let wordsJSON
     if (langCtx.value === "ENG") {
         placeholderText = "Enter a word"
@@ -19,7 +19,7 @@ export default function BlockedWords() {
     } else {
         placeholderText = "Vnesi besedo"
         addText = "+ Dodaj"
-        wordExistsText ="Ta beseda je že v seznamu blokiranih besed!"
+        wordExistsText = "Ta beseda je že v seznamu blokiranih besed!"
         wordsJSON = localStorage.getItem("SLOblockedWordsJSON")
         if (wordsJSON === null) {
             localStorage.setItem("SLOblockedWordsJSON", JSON.stringify([]))
@@ -27,19 +27,22 @@ export default function BlockedWords() {
         }
     }
 
+    let [wordsArray, setWordsArray] = useState<string[]>(JSON.parse(wordsJSON!))
 
-    let [wordsArray, setWordsArray] = useState<string[]>(
-        JSON.parse(wordsJSON!)
-    )
-
-    const [wordExists,setWordExists] = useState(false)
+    const [wordExists, setWordExists] = useState(false)
 
     let wordInput = useRef<null | HTMLInputElement>(null)
     useEffect(() => {
         if (langCtx.value === "ENG") {
-            localStorage.setItem("ENGblockedWordsJSON", JSON.stringify(wordsArray))
+            localStorage.setItem(
+                "ENGblockedWordsJSON",
+                JSON.stringify(wordsArray)
+            )
         } else {
-            localStorage.setItem("SLOblockedWordsJSON", JSON.stringify(wordsArray))
+            localStorage.setItem(
+                "SLOblockedWordsJSON",
+                JSON.stringify(wordsArray)
+            )
         }
     }, [wordsArray])
 
@@ -47,13 +50,10 @@ export default function BlockedWords() {
         if (wordInput !== null) {
             if (wordInput.current!.value.length < 1) {
                 wordInput.current!.className =
-                    wordInput.current!.className +
-                    " border-2 border-rose-500"
-            }
-            else if(wordsArray.includes(wordInput.current!.value)){
+                    wordInput.current!.className + " border-2 border-rose-500"
+            } else if (wordsArray.includes(wordInput.current!.value)) {
                 setWordExists(true)
-            }
-             else {
+            } else {
                 setWordExists(false)
                 setWordsArray([...wordsArray, wordInput.current!.value])
                 wordInput.current!.className = "rounded-md ml-2 bg-gray-200"
@@ -92,11 +92,10 @@ export default function BlockedWords() {
         )
     } else {
         return (
-
             <div className="mt-2">
-                {
-                    wordExists?<p className="text-red-500">{wordExistsText}</p>:null
-                }
+                {wordExists ? (
+                    <p className="text-red-500">{wordExistsText}</p>
+                ) : null}
                 <input
                     type={"text"}
                     className="rounded-md ml-2 bg-gray-200"

@@ -1,9 +1,11 @@
-import {ENGcategories, SLOcategories} from "../../assets/assets"
-import {useContext} from "react"
-import {languageContext} from "../../context/languageContext"
-import {genericStateProp, newsCategory} from "../../types.d"
+import { ENGcategories, SLOcategories } from "../../assets/assets"
+import { useContext } from "react"
+import { languageContext } from "../../context/languageContext"
+import { genericStateProp, newsCategory } from "../../types.d"
 
-export default function CategoriesDisplay(props: genericStateProp<newsCategory>) {
+export default function CategoriesDisplay(
+    props: genericStateProp<newsCategory>
+) {
     const langCtx = useContext(languageContext)
 
     function stringCategoryToEnum(value: string): newsCategory {
@@ -24,33 +26,47 @@ export default function CategoriesDisplay(props: genericStateProp<newsCategory>)
 
     const categoryArr = langCtx.value === "ENG" ? ENGcategories : SLOcategories
 
-    function handleCategoryChange(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    function handleCategoryChange(
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) {
         if (parseInt(e.currentTarget.id) === props.value) {
             return
         }
 
-        const currentSelection = document.getElementById(props.value.toString()) as HTMLButtonElement
-        currentSelection.className = "ml-2 p-1 rounded font-roboto bg-yellow-300 md:text-lg ml-3"
+        const currentSelection = document.getElementById(
+            props.value.toString()
+        ) as HTMLButtonElement
+        currentSelection.className =
+            "ml-2 p-1 rounded font-roboto bg-yellow-300 md:text-lg ml-3"
         const parsedValue = parseInt(e.currentTarget.id)
         props.setter(parsedValue)
     }
 
     return (
         <div className="inline-block mt-3">
-            {categoryArr.map(
-                (cat) => {
-                    const convertedCategory = stringCategoryToEnum(cat)
-                    if (stringCategoryToEnum(cat) === props.value) {
-
-                        return <button className="ml-2 p-1 font-roboto rounded bg-[#C4DFAA] md:text-lg ml-3"
-                                       id={convertedCategory.toString()} onClick={handleCategoryChange}
-                                       key={cat}>{cat}</button>
-                    }
-                    return <button className="ml-2 p-1 rounded font-roboto bg-yellow-300 md:text-lg ml-3"
-                                   id={convertedCategory.toString()} onClick={handleCategoryChange}
-                                   key={cat}>{cat}</button>
+            {categoryArr.map((cat) => {
+                const convertedCategory = stringCategoryToEnum(cat)
+                if (stringCategoryToEnum(cat) === props.value) {
+                    return (
+                        <button
+                            className="p-1 font-roboto rounded bg-[#C4DFAA] md:text-lg ml-2"
+                            id={convertedCategory.toString()}
+                            onClick={handleCategoryChange}
+                            key={cat}>
+                            {cat}
+                        </button>
+                    )
                 }
-            )}
+                return (
+                    <button
+                        className="p-1 rounded font-roboto bg-yellow-300 md:text-lg ml-2"
+                        id={convertedCategory.toString()}
+                        onClick={handleCategoryChange}
+                        key={cat}>
+                        {cat}
+                    </button>
+                )
+            })}
         </div>
     )
 }

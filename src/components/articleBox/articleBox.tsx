@@ -1,7 +1,6 @@
-import {newsArticle} from "../../types.d";
-import {languageContext} from "../../context/languageContext";
-import {useContext} from "react";
-
+import { newsArticle } from "../../types.d"
+import { languageContext } from "../../context/languageContext"
+import { useContext } from "react"
 
 export function ArticleBox(props: newsArticle) {
     let readMoreTxt = ""
@@ -17,7 +16,13 @@ export function ArticleBox(props: newsArticle) {
             <div className="bg-amber-100 h-full p-2">
                 <p className="font-bold">{props.title}</p>
                 <p className="my-1 font-roboto">{props.description}</p>
-                <a href={props.link} target={"_blank"} rel={"noreferrer"} className="text-blue-600 font-roboto">{readMoreTxt}</a>
+                <a
+                    href={props.link}
+                    target={"_blank"}
+                    rel={"noreferrer"}
+                    className="text-blue-600 font-roboto">
+                    {readMoreTxt}
+                </a>
             </div>
         </div>
     )

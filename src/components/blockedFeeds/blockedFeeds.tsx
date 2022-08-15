@@ -1,8 +1,10 @@
-import {languageContext} from "../../context/languageContext"
-import React, {useContext, useEffect, useRef, useState} from "react"
-import {genericStateProp} from "../../types";
+import { languageContext } from "../../context/languageContext"
+import React, { useContext, useEffect, useRef, useState } from "react"
+import { genericStateProp } from "../../types"
 
-export default function BlockedFeeds(newsSources: genericStateProp<string[] | undefined>) {
+export default function BlockedFeeds(
+    newsSources: genericStateProp<string[] | undefined>
+) {
     let langCtx = useContext(languageContext)
     let addText = ""
     let sourcesJson
@@ -14,16 +16,13 @@ export default function BlockedFeeds(newsSources: genericStateProp<string[] | un
             localStorage.setItem("ENGblockedFeedsJSON", JSON.stringify([]))
             sourcesJson = localStorage.getItem("ENGblockedFeedsJSON")
         }
-
     } else {
-
         addText = "+ Dodaj"
         sourcesJson = localStorage.getItem("SLOblockedFeedsJSON")
         if (sourcesJson === null) {
             localStorage.setItem("SLOblockedFeedsJSON", JSON.stringify([]))
             sourcesJson = localStorage.getItem("SLOblockedFeedsJSON")
         }
-
     }
     let [blockedFeedsArr, setBlockedFeedsArr] = useState<string[]>(
         JSON.parse(sourcesJson!)
