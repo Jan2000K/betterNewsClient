@@ -1,7 +1,7 @@
-import {useContext} from "react"
+import { useContext } from "react"
 import SVNicon from "../../assets/SVNFlag.svg"
 import UKicon from "../../assets/UKFlag.svg"
-import {languageContext} from "../../context/languageContext"
+import { languageContext } from "../../context/languageContext"
 
 export default function Header() {
     let langCtx = useContext(languageContext)

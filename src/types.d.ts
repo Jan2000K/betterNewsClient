@@ -9,7 +9,7 @@ export enum newsCategory {
     Sport,
     Technology,
     Other,
-    All
+    All,
 }
 
 export interface newsArticle {
