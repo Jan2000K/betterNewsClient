@@ -87,8 +87,8 @@ function App() {
                 .all([
                     axios.get(url),
                     axios.post(url, {
-                        blockedSources: blockedWords,
-                        blockedWords: blockedFeeds,
+                        blockedSources: blockedFeeds,
+                        blockedWords: blockedWords,
                     }),
                 ])
                 .then((res) => {
